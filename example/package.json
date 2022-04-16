@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next -p ${PORT:=9239}",
+    "build": "next build",
+    "start": "next start -p ${PORT:=9239}"
+  },
+  "dependencies": {
+    "modern-normalize": "^1.1.0",
+    "next": "^12.1.5",
+    "next-playerjs-wrapper": "link:../"
+  },
+  "devDependencies": {
+    "prop-types": "^15.8.1"
+  }
+}
