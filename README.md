@@ -37,14 +37,35 @@ import { Player } from "next-playerjs-wrapper";
 
 export const SomePage = () => (
   <div>
-    <Player
-      ref={playerRef}
-      id="my-player"
-      file="https://plrjs.com/sample.mp4"
-    />
+    <Player id="my-player" file="https://plrjs.com/sample.mp4" />
   </div>
 );
 ```
 
 > You can add any props on Player component you want playerjs constructor to process.
-> If you want to use the [Commands JS API](https://playerjs.com/docs/en=apicommands) or [Events JS API](https://playerjs.com/docs/en=api) you can see [examples](https://github.com/pavelvladimir/next-playerjs-wrapper/tree/main/example).
+
+### Commands JS API & Events JS API
+
+You can use [Commands JS API](https://playerjs.com/docs/en=apicommands) or [Events JS API](https://playerjs.com/docs/en=api) using the `getPlayer` reference hook.
+
+```js
+import { Player, getPlayer } from 'next-playerjs-wrapper'
+
+export const SomePage = () => {
+  const [playerRef, player] = getPlayer()
+
+  const  play = (event) => {
+    event.preventDefault()
+    if (player?.isReady) player.api('play')
+  }
+
+  return (
+    <div>
+      <Player ref={playerRef} id='my-player' file='https://plrjs.com/sample.mp4'/>
+      <a href='#' onClick={play}>Click for play!</a>
+    </div>
+  )
+)
+```
+
+> For more examples, see [source](https://github.com/pavelvladimir/next-playerjs-wrapper/tree/main/example) of example page.

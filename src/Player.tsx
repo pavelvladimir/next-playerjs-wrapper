@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   forwardRef,
+  useCallback,
 } from 'react'
 
 import { PlayerContext } from './PlayerProvider'
@@ -36,6 +37,8 @@ const subscribe: Subscribe = ({ id, event: listenedEvent, listener }) => {
   return detachEventListener
 }
 
+const defaultPlayerState: PlayerInterface = { isReady: false }
+
 const PlayerComponent = forwardRef((props: PlayerProps, ref: React.Ref<PlayerInterface>) => {
   const [state] = useContext(PlayerContext)
   const [player, setPlayer] = useState<Playerjs | null>(null)
@@ -47,8 +50,8 @@ const PlayerComponent = forwardRef((props: PlayerProps, ref: React.Ref<PlayerInt
         api: (...args) => player.api(...args),
         event: (event, listener) => subscribe({ event, id: props.id, listener }),
         isReady: true,
-      } || { isReady: false },
-  )
+      } || defaultPlayerState,
+    [player])
 
   useEffect(() => {
     if (state.playerjs && !player) {
@@ -69,3 +72,13 @@ const PlayerComponent = forwardRef((props: PlayerProps, ref: React.Ref<PlayerInt
 PlayerComponent.displayName = 'Player'
 
 export const Player = PlayerComponent
+
+export const getPlayer = () => {
+  const [player, setPlayer] = useState(defaultPlayerState)
+
+  const setRef = useCallback((ref: PlayerInterface | null) => {
+    if (ref != null) setPlayer(ref)
+  }, [])
+
+  return [setRef, player]
+}

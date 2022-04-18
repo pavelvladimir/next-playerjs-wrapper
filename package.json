@@ -1,12 +1,16 @@
 {
   "name": "next-playerjs-wrapper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Next.js wrapper for playerjs",
   "main": "dist/commonjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/types.d.ts",
   "author": "Pavel Vladimír Trávníček <pavel.vladimir.travnicek@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pavelvladimir/next-playerjs-wrapper.git"
+  },
   "engines": {
     "node": ">=12"
   },

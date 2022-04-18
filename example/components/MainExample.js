@@ -1,16 +1,8 @@
-import React, { useCallback, useState } from 'react'
-import { Player } from 'next-playerjs-wrapper'
+import React from 'react'
+import { Player, getPlayer } from 'next-playerjs-wrapper'
 
 export const MainExample = () => {
-  const [player, setPlayer] = useState(null)
-
-  let prevent = false
-  const playerRef = useCallback(ref => {
-    if (ref?.isReady && !prevent) {
-      prevent = true
-      setPlayer(ref)
-    }
-  }, [])
+  const [playerRef, player] = getPlayer()
 
   const play = (event) => {
     event.preventDefault()

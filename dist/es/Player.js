@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useContext, useState, useEffect, useImperativeHandle, forwardRef, useCallback } from 'react';
 import { PlayerContext } from './PlayerProvider';
 const listeners = {};
 
@@ -30,6 +30,9 @@ const subscribe = ({
   return detachEventListener;
 };
 
+const defaultPlayerState = {
+  isReady: false
+};
 const PlayerComponent = /*#__PURE__*/forwardRef((props, ref) => {
   const [state] = useContext(PlayerContext);
   const [player, setPlayer] = useState(null);
@@ -41,9 +44,7 @@ const PlayerComponent = /*#__PURE__*/forwardRef((props, ref) => {
       listener
     }),
     isReady: true
-  } || {
-    isReady: false
-  });
+  } || defaultPlayerState, [player]);
   useEffect(() => {
     if (state.playerjs && !player) {
       setPlayer(new state.playerjs(props));
@@ -63,3 +64,10 @@ const PlayerComponent = /*#__PURE__*/forwardRef((props, ref) => {
 });
 PlayerComponent.displayName = 'Player';
 export const Player = PlayerComponent;
+export const getPlayer = () => {
+  const [player, setPlayer] = useState(defaultPlayerState);
+  const setRef = useCallback(ref => {
+    if (ref != null) setPlayer(ref);
+  }, []);
+  return [setRef, player];
+};

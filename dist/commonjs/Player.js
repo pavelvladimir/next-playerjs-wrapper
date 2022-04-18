@@ -35,7 +35,7 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Player = void 0;
+exports.getPlayer = exports.Player = void 0;
 
 require("core-js/modules/es.array.concat.js");
 
@@ -84,6 +84,9 @@ var subscribe = function subscribe(_ref) {
   return detachEventListener;
 };
 
+var defaultPlayerState = {
+  isReady: false
+};
 var PlayerComponent = /*#__PURE__*/(0, _react.forwardRef)(function (props, ref) {
   var _useContext = (0, _react.useContext)(_PlayerProvider.PlayerContext),
       state = _useContext[0];
@@ -105,10 +108,8 @@ var PlayerComponent = /*#__PURE__*/(0, _react.forwardRef)(function (props, ref) 
         });
       },
       isReady: true
-    } || {
-      isReady: false
-    };
-  });
+    } || defaultPlayerState;
+  }, [player]);
   (0, _react.useEffect)(function () {
     if (state.playerjs && !player) {
       setPlayer(new state.playerjs(props));
@@ -139,3 +140,16 @@ var PlayerComponent = /*#__PURE__*/(0, _react.forwardRef)(function (props, ref) 
 PlayerComponent.displayName = 'Player';
 var Player = PlayerComponent;
 exports.Player = Player;
+
+var getPlayer = function getPlayer() {
+  var _useState2 = (0, _react.useState)(defaultPlayerState),
+      player = _useState2[0],
+      setPlayer = _useState2[1];
+
+  var setRef = (0, _react.useCallback)(function (ref) {
+    if (ref != null) setPlayer(ref);
+  }, []);
+  return [setRef, player];
+};
+
+exports.getPlayer = getPlayer;

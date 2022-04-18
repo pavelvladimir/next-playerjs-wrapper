@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react'
-import { Player } from 'next-playerjs-wrapper'
+import React, { useState, useRef, useEffect } from 'react'
+import { Player, getPlayer } from 'next-playerjs-wrapper'
 
 const FixedScrollPosition = () => {
   const elementRef = useRef()
@@ -9,13 +9,10 @@ const FixedScrollPosition = () => {
 
 export const AutoplayExample = () => {
   const [log, setLog] = useState([])
+  const [playerRef, player] = getPlayer()
 
-
-  let prevent = false
-  const playerRef = useCallback(player => {
-    if (player?.isReady && !prevent) {
-      prevent = true
-
+  useEffect(() => {
+    if (player?.isReady) {
       player.event('play', () => {
         setLog((log) => [...log, 'Play!!!'])
       })
@@ -36,7 +33,7 @@ export const AutoplayExample = () => {
         setLog((log) => [...log, 'Time listener has been removed!!!'])
       }, 5000)
     }
-  }, [])
+  }, [player])
 
 
   return (

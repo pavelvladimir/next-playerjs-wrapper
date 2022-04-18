@@ -6,7 +6,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-import React, { useContext, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useContext, useState, useEffect, useImperativeHandle, forwardRef, useCallback } from 'react';
 import { PlayerContext } from './PlayerProvider';
 var listeners = {};
 
@@ -37,6 +37,9 @@ var subscribe = function subscribe(_ref) {
   return detachEventListener;
 };
 
+var defaultPlayerState = {
+  isReady: false
+};
 var PlayerComponent = /*#__PURE__*/forwardRef(function (props, ref) {
   var _useContext = useContext(PlayerContext),
       state = _useContext[0];
@@ -58,10 +61,8 @@ var PlayerComponent = /*#__PURE__*/forwardRef(function (props, ref) {
         });
       },
       isReady: true
-    } || {
-      isReady: false
-    };
-  });
+    } || defaultPlayerState;
+  }, [player]);
   useEffect(function () {
     if (state.playerjs && !player) {
       setPlayer(new state.playerjs(props));
@@ -91,3 +92,13 @@ var PlayerComponent = /*#__PURE__*/forwardRef(function (props, ref) {
 });
 PlayerComponent.displayName = 'Player';
 export var Player = PlayerComponent;
+export var getPlayer = function getPlayer() {
+  var _useState2 = useState(defaultPlayerState),
+      player = _useState2[0],
+      setPlayer = _useState2[1];
+
+  var setRef = useCallback(function (ref) {
+    if (ref != null) setPlayer(ref);
+  }, []);
+  return [setRef, player];
+};

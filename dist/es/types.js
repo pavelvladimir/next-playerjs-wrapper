@@ -1,3 +1,3 @@
-import { Player } from './Player';
+import { Player, getPlayer } from './Player';
 import { PlayerProvider } from './PlayerProvider';
-export { Player, PlayerProvider };
+export { Player, getPlayer, PlayerProvider };

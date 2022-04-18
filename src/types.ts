@@ -1,4 +1,4 @@
-import { Player } from './Player'
+import { Player, getPlayer } from './Player'
 import { PlayerProvider } from './PlayerProvider'
 
 type ApiFunction = (command: string, parameter?: any, value?: any) => void
@@ -24,5 +24,6 @@ export type Playerjs = {
 
 export {
   Player,
+  getPlayer,
   PlayerProvider,
 }

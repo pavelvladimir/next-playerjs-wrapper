@@ -1,4 +1,4 @@
-import { Player } from './Player';
+import { Player, getPlayer } from './Player';
 import { PlayerProvider } from './PlayerProvider';
 declare type ApiFunction = (command: string, parameter?: any, value?: any) => void;
 export declare type PlayerId = string;
@@ -16,4 +16,4 @@ export declare type Playerjs = {
     [x: string]: any;
     api: ApiFunction;
 };
-export { Player, PlayerProvider, };
+export { Player, getPlayer, PlayerProvider, };
