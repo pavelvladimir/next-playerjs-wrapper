@@ -1,3 +1,6 @@
+import { Player } from './Player'
+import { PlayerProvider } from './PlayerProvider'
+
 type ApiFunction = (command: string, parameter?: any, value?: any) => void
 
 export type PlayerId = string
@@ -8,7 +11,7 @@ export type PlayerProps = {
   id: PlayerId
 }
 
-export interface Player {
+export interface PlayerInterface {
   api?: ApiFunction
   event?: (event: string, listener: EventListener) => void
   isReady: boolean
@@ -17,4 +20,9 @@ export interface Player {
 export type Playerjs = {
   [x: string]: any
   api: ApiFunction
+}
+
+export {
+  Player,
+  PlayerProvider,
 }

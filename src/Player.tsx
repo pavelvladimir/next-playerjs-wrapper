@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 
 import { PlayerContext } from './PlayerProvider'
-import { PlayerProps, Player as PlayerInterface, Playerjs, PlayerId } from './types'
+import { PlayerProps, PlayerInterface, Playerjs, PlayerId } from './types'
 
 const listeners: {
   [P in string]?: Array<() => void>
