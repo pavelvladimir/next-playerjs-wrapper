@@ -73,7 +73,7 @@ PlayerComponent.displayName = 'Player'
 
 export const Player = PlayerComponent
 
-export const getPlayer = () => {
+export const getPlayer = (): [((ref: PlayerInterface | null) => void), PlayerInterface] => {
   const [player, setPlayer] = useState(defaultPlayerState)
 
   const setRef = useCallback((ref: PlayerInterface | null) => {
