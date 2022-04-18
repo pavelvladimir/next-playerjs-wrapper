@@ -12,7 +12,7 @@ export const AutoplayExample = () => {
   const [playerRef, player] = getPlayer()
 
   useEffect(() => {
-    if (player?.isReady) {
+    if (player.isReady) {
       player.event('play', () => {
         setLog((log) => [...log, 'Play!!!'])
       })

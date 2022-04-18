@@ -56,7 +56,7 @@ export const SomePage = () => {
 
   const  play = (event) => {
     event.preventDefault()
-    if (player?.isReady) player.api('play')
+    if (player.isReady) player.api('play')
   }
 
   return (

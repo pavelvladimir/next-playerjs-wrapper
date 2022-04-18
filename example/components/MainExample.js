@@ -6,7 +6,7 @@ export const MainExample = () => {
 
   const play = (event) => {
     event.preventDefault()
-    if (player?.isReady) player.api('play')
+    if (player.isReady) player.api('play')
   }
 
   const btnStyle = {
@@ -20,7 +20,7 @@ export const MainExample = () => {
       </div>
 
       <div style={{ margin: '1rem auto', textAlign: 'center' }} >
-        <a href='#' style={{ backgroundColor: player?.isReady ? '#ff0002' : '#000', ...btnStyle }} onClick={play}>
+        <a href='#' style={{ backgroundColor: player.isReady ? '#ff0002' : '#000', ...btnStyle }} onClick={play}>
             Click for play!
         </a>
       </div>
