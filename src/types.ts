@@ -1,7 +1,7 @@
 import { Player, getPlayer } from './Player'
 import { PlayerProvider } from './PlayerProvider'
 
-type ApiFunction = (command: string, parameter?: any, value?: any) => void
+type ApiFunction = (command: string, parameter?: any, value?: any) => any
 
 export type PlayerId = string
 
@@ -13,7 +13,7 @@ export type PlayerProps = {
 
 export interface PlayerInterface {
   api?: ApiFunction
-  event?: (event: string, listener: EventListener) => void
+  event?: (event: string, listener: EventListener) => (() => void)
   isReady: boolean
 }
 

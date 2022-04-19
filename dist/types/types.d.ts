@@ -1,6 +1,6 @@
 import { Player, getPlayer } from './Player';
 import { PlayerProvider } from './PlayerProvider';
-declare type ApiFunction = (command: string, parameter?: any, value?: any) => void;
+declare type ApiFunction = (command: string, parameter?: any, value?: any) => any;
 export declare type PlayerId = string;
 export declare type PlayerProps = {
     [x: string]: any;
@@ -9,7 +9,7 @@ export declare type PlayerProps = {
 };
 export interface PlayerInterface {
     api?: ApiFunction;
-    event?: (event: string, listener: EventListener) => void;
+    event?: (event: string, listener: EventListener) => (() => void);
     isReady: boolean;
 }
 export declare type Playerjs = {
