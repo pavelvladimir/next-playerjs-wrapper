@@ -14,7 +14,7 @@ const listeners: {
   [P in string]?: Array<() => void>
 } = {}
 
-type Subscribe = (data: { event: string, id: PlayerId, listener: EventListener }) => void
+type Subscribe = (data: { event: string, id: PlayerId, listener: EventListener }) => (() => void)
 
 const subscribe: Subscribe = ({ id, event: listenedEvent, listener }) => {
 
