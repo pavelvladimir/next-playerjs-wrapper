@@ -40,13 +40,14 @@ export const PlayerProvider = ({
   src,
   player,
   onLoad,
+  eventsApiMethodName = 'PlayerjsEvents',
   children,
   ...args
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
-    if (!window.PlayerjsEvents) {
-      window.PlayerjsEvents = PlayerjsEvents;
+    if (!window[eventsApiMethodName]) {
+      window[eventsApiMethodName] = PlayerjsEvents;
     }
 
     if (!state.playerjs && window.Playerjs) {

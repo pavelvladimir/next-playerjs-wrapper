@@ -49,7 +49,7 @@ var _script = _interopRequireDefault(require("next/script"));
 
 var _uuid = require("uuid");
 
-var _excluded = ["src", "player", "onLoad", "children"];
+var _excluded = ["src", "player", "onLoad", "eventsApiMethodName", "children"];
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -103,6 +103,8 @@ var PlayerProvider = function PlayerProvider(_ref) {
   var src = _ref.src,
       player = _ref.player,
       onLoad = _ref.onLoad,
+      _ref$eventsApiMethodN = _ref.eventsApiMethodName,
+      eventsApiMethodName = _ref$eventsApiMethodN === void 0 ? 'PlayerjsEvents' : _ref$eventsApiMethodN,
       children = _ref.children,
       args = (0, _objectWithoutProperties2["default"])(_ref, _excluded);
 
@@ -111,8 +113,8 @@ var PlayerProvider = function PlayerProvider(_ref) {
       dispatch = _useReducer[1];
 
   (0, _react.useEffect)(function () {
-    if (!window.PlayerjsEvents) {
-      window.PlayerjsEvents = PlayerjsEvents;
+    if (!window[eventsApiMethodName]) {
+      window[eventsApiMethodName] = PlayerjsEvents;
     }
 
     if (!state.playerjs && window.Playerjs) {
