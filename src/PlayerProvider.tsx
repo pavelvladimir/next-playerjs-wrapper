@@ -1,4 +1,3 @@
-
 import React, { createContext, useReducer, useEffect } from 'react'
 import Script, { ScriptProps } from 'next/script'
 import { v4 as createGuid } from 'uuid'
@@ -8,11 +7,11 @@ import { PlayerProps, Playerjs, PlayerId } from './types'
 type PlayerjsEventsFunction = (event: string, id: PlayerId, data: any) => void
 
 declare global {
-    interface Window {
-        [key:string]: any
-        Playerjs: PlayerConstructor
-        PlayerjsEvents?: PlayerjsEventsFunction
-    }
+  interface Window {
+    [key: string]: any
+    Playerjs: PlayerConstructor
+    PlayerjsEvents?: PlayerjsEventsFunction
+  }
 }
 
 interface PlayerProviderProps extends ScriptProps {
@@ -39,13 +38,13 @@ const reducer: React.Reducer<PlayerProviderState, PlayerProviderAction> = (
   action: PlayerProviderAction,
 ) => {
   switch (action.type) {
-  case 'SET_PLAYERJS':
-    return {
-      ...state,
-      playerjs: action.payload,
-    }
-  default:
-    return state
+    case 'SET_PLAYERJS':
+      return {
+        ...state,
+        playerjs: action.payload,
+      }
+    default:
+      return state
   }
 }
 
@@ -69,11 +68,15 @@ const PlayerjsEvents: PlayerjsEventsFunction = (event, id, data) => {
 
 const id = createGuid()
 
-export const PlayerProvider = ({ src, player, onLoad, eventsApiMethodName = 'PlayerjsEvents', children, ...args }: PlayerProviderProps) => {
-  const [state, dispatch] = useReducer<React.Reducer<PlayerProviderState, PlayerProviderAction>>(
-    reducer,
-    initialState,
-  )
+export const PlayerProvider = ({
+  src,
+  player,
+  onLoad,
+  eventsApiMethodName = 'PlayerjsEvents',
+  children,
+  ...args
+}: PlayerProviderProps) => {
+  const [state, dispatch] = useReducer<React.Reducer<PlayerProviderState, PlayerProviderAction>>(reducer, initialState)
 
   useEffect(() => {
     if (!window[eventsApiMethodName]) {

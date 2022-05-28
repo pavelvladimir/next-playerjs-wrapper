@@ -11,10 +11,10 @@ Object.defineProperty(exports, "Player", {
     return _Player.Player;
   }
 });
-Object.defineProperty(exports, "getPlayer", {
+Object.defineProperty(exports, "usePlayerRef", {
   enumerable: true,
   get: function get() {
-    return _Player.getPlayer;
+    return _Player.usePlayerRef;
   }
 });
 Object.defineProperty(exports, "PlayerProvider", {
@@ -23,7 +23,15 @@ Object.defineProperty(exports, "PlayerProvider", {
     return _PlayerProvider.PlayerProvider;
   }
 });
+exports.getPlayer = void 0;
 
 var _Player = require("./Player");
 
 var _PlayerProvider = require("./PlayerProvider");
+
+// eslint-disable-next-line react-hooks/rules-of-hooks
+var getPlayer = function getPlayer() {
+  return (0, _Player.usePlayerRef)(true);
+};
+
+exports.getPlayer = getPlayer;

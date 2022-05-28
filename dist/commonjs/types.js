@@ -14,7 +14,13 @@ Object.defineProperty(exports, "Player", {
 Object.defineProperty(exports, "getPlayer", {
   enumerable: true,
   get: function get() {
-    return _Player.getPlayer;
+    return _Player.usePlayerRef;
+  }
+});
+Object.defineProperty(exports, "usePlayerRef", {
+  enumerable: true,
+  get: function get() {
+    return _Player.usePlayerRef;
   }
 });
 Object.defineProperty(exports, "PlayerProvider", {

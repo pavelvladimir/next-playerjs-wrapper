@@ -10,12 +10,12 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
-          <meta name='viewport' content='width=device-width, maximum-scale=1.0, user-scalable=no' />
-          <meta name='format-detection' content='telephone=no' />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+          <meta name="format-detection" content="telephone=no" />
         </Head>
-        <div className='app'>
-          <PlayerProvider player='/playerjs.js'>
+        <div className="app">
+          <PlayerProvider player="/playerjs.js">
             <Component {...pageProps} />
           </PlayerProvider>
         </div>

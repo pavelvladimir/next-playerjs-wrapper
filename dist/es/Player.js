@@ -35,36 +35,50 @@ const defaultPlayerState = {
 };
 const PlayerComponent = /*#__PURE__*/forwardRef((props, ref) => {
   const [state] = useContext(PlayerContext);
+  const [initialProps, setInitialProps] = useState(null);
   const [player, setPlayer] = useState(null);
   useImperativeHandle(ref, () => player && {
     api: (...args) => player.api(...args),
     event: (event, listener) => subscribe({
       event,
-      id: props.id,
+      id: initialProps.id,
       listener
     }),
     isReady: true
-  } || defaultPlayerState, [player]);
+  } || defaultPlayerState, [initialProps, player]);
   useEffect(() => {
-    if (state.playerjs && !player) {
-      setPlayer(new state.playerjs(props));
+    if (state.playerjs && initialProps != null && !player) {
+      setPlayer(new state.playerjs(initialProps));
     }
 
     return () => {
       if (player) player.api('destroy');
 
-      for (const listener of listeners[props.id] || []) {
-        listener();
+      if (initialProps != null) {
+        for (const listener of listeners[initialProps.id] || []) {
+          listener();
+        }
       }
     };
-  }, [state.playerjs]);
+  }, [player, initialProps, state.playerjs]);
+  useEffect(() => {
+    if (initialProps === null && props.id != null) {
+      setInitialProps(props);
+    } else if (initialProps === null && props.id == null) {
+      console.warn(`Missing mandatory property 'id'!`);
+    }
+  }, [initialProps, props]);
   return /*#__PURE__*/React.createElement("div", {
     id: props.id
   });
 });
 PlayerComponent.displayName = 'Player';
-export const Player = PlayerComponent;
-export const getPlayer = () => {
+export const Player = /*#__PURE__*/React.memo(PlayerComponent, () => true);
+export const usePlayerRef = (callFromDeprecatedFunction = false) => {
+  if (callFromDeprecatedFunction) {
+    console.warn('The getPlayer function is deprecated, please use the usePlayerRef function.');
+  }
+
   const [player, setPlayer] = useState(defaultPlayerState);
   const setRef = useCallback(ref => {
     if (ref != null) setPlayer(ref);

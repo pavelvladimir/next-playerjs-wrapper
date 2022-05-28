@@ -45,8 +45,12 @@ var PlayerComponent = /*#__PURE__*/forwardRef(function (props, ref) {
       state = _useContext[0];
 
   var _useState = useState(null),
-      player = _useState[0],
-      setPlayer = _useState[1];
+      initialProps = _useState[0],
+      setInitialProps = _useState[1];
+
+  var _useState2 = useState(null),
+      player = _useState2[0],
+      setPlayer = _useState2[1];
 
   useImperativeHandle(ref, function () {
     return player && {
@@ -56,46 +60,63 @@ var PlayerComponent = /*#__PURE__*/forwardRef(function (props, ref) {
       event: function event(_event, listener) {
         return subscribe({
           event: _event,
-          id: props.id,
+          id: initialProps.id,
           listener: listener
         });
       },
       isReady: true
     } || defaultPlayerState;
-  }, [player]);
+  }, [initialProps, player]);
   useEffect(function () {
-    if (state.playerjs && !player) {
-      setPlayer(new state.playerjs(props));
+    if (state.playerjs && initialProps != null && !player) {
+      setPlayer(new state.playerjs(initialProps));
     }
 
     return function () {
       if (player) player.api('destroy');
 
-      var _iterator = _createForOfIteratorHelper(listeners[props.id] || []),
-          _step;
+      if (initialProps != null) {
+        var _iterator = _createForOfIteratorHelper(listeners[initialProps.id] || []),
+            _step;
 
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var listener = _step.value;
-          listener();
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var listener = _step.value;
+            listener();
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
         }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
       }
     };
-  }, [state.playerjs]);
+  }, [player, initialProps, state.playerjs]);
+  useEffect(function () {
+    if (initialProps === null && props.id != null) {
+      setInitialProps(props);
+    } else if (initialProps === null && props.id == null) {
+      console.warn("Missing mandatory property 'id'!");
+    }
+  }, [initialProps, props]);
   return __jsx("div", {
     id: props.id
   });
 });
 PlayerComponent.displayName = 'Player';
-export var Player = PlayerComponent;
-export var getPlayer = function getPlayer() {
-  var _useState2 = useState(defaultPlayerState),
-      player = _useState2[0],
-      setPlayer = _useState2[1];
+export var Player = /*#__PURE__*/React.memo(PlayerComponent, function () {
+  return true;
+});
+export var usePlayerRef = function usePlayerRef() {
+  var callFromDeprecatedFunction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+  if (callFromDeprecatedFunction) {
+    console.warn('The getPlayer function is deprecated, please use the usePlayerRef function.');
+  }
+
+  var _useState3 = useState(defaultPlayerState),
+      player = _useState3[0],
+      setPlayer = _useState3[1];
 
   var setRef = useCallback(function (ref) {
     if (ref != null) setPlayer(ref);
