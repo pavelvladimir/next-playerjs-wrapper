@@ -16,4 +16,5 @@ export declare type Playerjs = {
     [x: string]: any;
     api: ApiFunction;
 };
-export { Player, usePlayerRef as getPlayer, usePlayerRef, PlayerProvider };
+declare const getPlayer: () => [(ref: PlayerInterface | null) => void, PlayerInterface];
+export { Player, getPlayer, usePlayerRef, PlayerProvider };

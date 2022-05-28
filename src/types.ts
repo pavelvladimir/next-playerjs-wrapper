@@ -22,7 +22,7 @@ export type Playerjs = {
   api: ApiFunction
 }
 
-// // eslint-disable-next-line react-hooks/rules-of-hooks
-// const getPlayer = () => usePlayerRef(true)
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const getPlayer = () => usePlayerRef(true)
 
-export { Player, usePlayerRef as getPlayer, usePlayerRef, PlayerProvider }
+export { Player, getPlayer, usePlayerRef, PlayerProvider }
